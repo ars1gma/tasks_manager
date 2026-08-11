@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+
+env/
+venv/
+.env/
+.env
+
+local_database.db
+*.log
+.vscode
+.DB_Store
