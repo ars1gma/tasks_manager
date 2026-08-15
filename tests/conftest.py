@@ -14,7 +14,7 @@ settings = get_settings()
 
 TEST_DATABASE_URL = (
     f"postgresql+asyncpg://{settings.DB_USER}:{settings.DB_PASS}"
-    f"@{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}_test"
+    f"@{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}"
 )
 
 test_engine = create_async_engine(TEST_DATABASE_URL, poolclass=NullPool)
@@ -55,3 +55,8 @@ async def client(db_session: AsyncSession) -> AsyncGenerator[AsyncSession, None]
         yield ac
 
     app.dependency_overrides.clear()
+
+@pytest.fixture(scope="session")
+def anyio_backend():
+    """Переопределяем фикстуру anyio на уровень session, чтобы убрать ScopeMismatch."""
+    return "asyncio"

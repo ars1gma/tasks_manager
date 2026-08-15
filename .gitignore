@@ -13,4 +13,4 @@ venv/
 local_database.db
 *.log
 .vscode
-.DB_Store
+.DS_Store

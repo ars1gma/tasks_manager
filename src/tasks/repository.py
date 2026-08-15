@@ -51,7 +51,7 @@ class TaskRepository:
         )
         return result.scalars().first()
 
-    async def get_user_tasks(self, user_id: int, skip: int, limit: int) -> list[Task]:
+    async def get_user_tasks(self, user_id: int, skip: int = 0, limit: int = 5) -> list[Task]:
         """ Найти задачи пользователя с пагинацией.
 
         Args:
