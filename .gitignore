@@ -14,3 +14,4 @@ local_database.db
 *.log
 .vscode
 .DS_Store
+postgres_data/

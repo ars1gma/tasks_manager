@@ -25,6 +25,13 @@ test_async_sessionmaker = async_sessionmaker(
 )
 
 @pytest.fixture(scope="session")
+async def event_loop():
+    policy = asyncio.get_event_loop_policy()
+    loop = policy.new_event_loop()
+    yield loop
+    loop.close()
+
+@pytest.fixture(scope="session")
 async def prepare_database():
     async with test_engine.begin() as connection:
         await connection.run_sync(Base.metadata.create_all)

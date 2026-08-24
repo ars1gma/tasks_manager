@@ -1,0 +1,24 @@
+services:
+  web-app: 
+    build: .
+    container_name: tasks-manager-app
+    ports:
+      - '8080:5000'
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=database
+    depends_on:
+      - database
+
+  database:
+    image: postgres:18-alpine
+    container_name: tasks-manager-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tasks_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./postgres_data:/var/lib/postgresql
