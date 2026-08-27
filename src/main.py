@@ -1,16 +1,9 @@
-from contextlib import asynccontextmanager
-
 from fastapi import FastAPI
 
+from src.app_lifespan import lifespan
 from src.auth.router import router as router_auth
+from src.middlewares import LogAndErrorsMiddleware
 from src.tasks.router import router as router_task
-
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    print("App start")
-    yield
-    print("App stop")
 
 app = FastAPI(
     title="Tasks Manager",
@@ -21,3 +14,5 @@ app = FastAPI(
 
 app.include_router(router_auth)
 app.include_router(router_task)
+
+app.add_middleware(LogAndErrorsMiddleware)
